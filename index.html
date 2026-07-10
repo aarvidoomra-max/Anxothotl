@@ -1270,9 +1270,8 @@ body {
         .team-grid {
             margin-top: 28px;
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(240px, 280px));
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
             gap: 26px;
-            justify-content: center;
         }
         .team-card {
             text-align: center;
@@ -1337,7 +1336,7 @@ body {
         .team-card-solo {
             grid-column: 1 / -1;
             max-width: 260px;
-            margin: 0 auto;
+            margin: 0;
         }
         .researchers-title {
             grid-column: 1 / -1;
