@@ -582,10 +582,21 @@
             background: rgba(255, 255, 255, 0.6);
             backdrop-filter: blur(8px);
             border-radius: var(--radius);
-            padding: 28px 26px;
+            padding: 28px 26px 52px;
             border: 1px solid rgba(255, 255, 255, 0.5);
             box-shadow: var(--shadow);
             transition: var(--transition);
+            position: relative;
+        }
+        .testimonial-card .school-logo {
+            position: absolute;
+            bottom: 16px;
+            left: 20px;
+            height: 28px;
+            width: auto;
+            max-width: 90px;
+            object-fit: contain;
+            opacity: 0.9;
         }
         .testimonial-card:hover {
             transform: translateY(-6px) scale(1.01);
@@ -1750,17 +1761,21 @@ body {
                 <div class="testimonial-card">
                     <div class="quote">I'm truly impressed by the work you and your team are doing through Anxothotl and Project Reach. It's remarkable to see such initiative and dedication at your age.</div>
                     <div class="attribution">— Professor, Ashoka University <small>Psychology Department</small></div>
+                    <img class="school-logo" src="https://en.wikipedia.org/wiki/Special:FilePath/Ashoka_University_logo_with_wordmark.png" alt="Ashoka University logo">
                 </div>
                 <div class="testimonial-card">
                     <div class="quote">The efforts you have put into the paper is commendable.</div>
                     <div class="attribution">— Professor, FLAME University <small>Research Faculty</small></div>
+                    <img class="school-logo" src="https://wp.logos-download.com/wp-content/uploads/2019/11/FLAME_University_Logo-688x700.png" alt="FLAME University logo">
                 </div>
                 <div class="testimonial-card">
                     <div class="quote">It is very interesting! The document is very well written: It's nice to see you integrate all of that relevant research into the background, walk through your results, and spend so much time discussing their implications. The results are also interesting and shed light on what people are feeling / how they cope, and how these features vary across age. Great job.</div>
                     <div class="attribution">— Professor, Princeton University <small>Psychology &amp; Neuroscience</small></div>
+                    <img class="school-logo" src="https://en.wikipedia.org/wiki/Special:FilePath/Princeton_seal.svg" alt="Princeton University seal">
                 </div>
                 <div class="testimonial-card">
                     <div class="attribution">Approved by DIRECT at Darthmouth College</div>
+                    <img class="school-logo" src="https://en.wikipedia.org/wiki/Special:FilePath/Dartmouth_College_logo.svg" alt="Dartmouth College logo">
                 </div>
             </div>
         </section>
@@ -1925,7 +1940,7 @@ body {
         <!-- ====== TEAM ====== -->
         <section id="team" class="page">
             <h2 class="section-title"><span class="highlight">Our Team</span></h2>
-            <p class="section-sub">The people behind Anxothotl — building a kinder, more aware world, one workshop at a time.</p>
+            <p class="section-sub">The people behind Anxothotl</p>
 
             <div class="team-grid">
 
@@ -1950,6 +1965,7 @@ body {
                     <div class="team-avatar" style="background: linear-gradient(135deg, #b8e0ff 0%, #6f8fd4 100%);">A</div>
                     <div class="recog-badge">Web Developer</div>
                     <h3>Aakshi Arora</h3>
+                    <p>Builds and maintains the Anxothotl website, turning ideas into a smooth, accessible experience for every visitor.</p>
                 </div>
 
                 <h3 class="researchers-title">Researchers</h3>
