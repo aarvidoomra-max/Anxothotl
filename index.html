@@ -1270,8 +1270,9 @@ body {
         .team-grid {
             margin-top: 28px;
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(240px, 280px));
             gap: 26px;
+            justify-content: center;
         }
         .team-card {
             text-align: center;
@@ -1314,6 +1315,38 @@ body {
             background: rgba(114,2,88,0.06);
             padding: 4px 12px;
             border-radius: 20px;
+        }
+        .team-video-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            margin-top: 10px;
+            font-size: 0.82rem;
+            font-weight: 700;
+            color: var(--pink-5);
+            border: 1px solid var(--pink-3);
+            padding: 6px 14px;
+            border-radius: 20px;
+            transition: var(--transition);
+        }
+        .team-video-link:hover {
+            background: var(--pink-5);
+            color: #fff;
+            border-color: var(--pink-5);
+        }
+        .team-card-solo {
+            grid-column: 1 / -1;
+            max-width: 260px;
+            margin: 0 auto;
+        }
+        .researchers-title {
+            grid-column: 1 / -1;
+            margin: 30px 0 -6px;
+            text-align: center;
+            font-family: var(--display);
+            font-size: 1.6rem;
+            color: var(--pink-5);
+            font-weight: 700;
         }
 
         /* ----- WELCOME POPUP ----- */
@@ -1843,26 +1876,60 @@ body {
 
             <div class="team-grid">
 
-                <!-- Aarvi - Founder -->
+                <!-- Aarvi Doomra - Founder & CEO -->
                 <div class="team-card glass">
                     <div class="team-avatar" style="background: linear-gradient(135deg, #ffd9ea 0%, #e8689f 100%);">A</div>
-                    <div class="recog-badge">Founder</div>
-                    <h3>Aarvi</h3>
-                    <p class="team-role">Founder, Anxothotl</p>
+                    <div class="recog-badge">Founder &amp; CEO</div>
+                    <h3>Aarvi Doomra</h3>
+                    <p class="team-role">Founder &amp; CEO, Anxothotl</p>
                     <p>The heart behind Anxothotl — leading the vision to make mental health support accessible, warm, and stigma-free for young people everywhere.</p>
+                    <a href="Enter link here" target="_blank" rel="noopener" class="team-video-link">▶ Meet the Founder</a>
                 </div>
 
-                <!-- Manav - Graphic Designer -->
+                <!-- Manavjot Singh - Product Manager and Graphic Designer -->
                 <div class="team-card glass">
                     <div class="team-avatar" style="background: linear-gradient(135deg, #d0d154 0%, #9c717a 100%);">M</div>
-                    <div class="recog-badge">Graphic Designer</div>
-                    <h3>Manav</h3>
-                    <p class="team-role">Graphic Designer</p>
-                    <p>Brings Anxothotl's playful, comforting visual identity to life — from the axolotl mascot to every workshop asset and social post.</p>
+                    <div class="recog-badge">Product Manager &amp; Graphic Designer</div>
+                    <h3>Manavjot Singh</h3>
+                    <p class="team-role">Product Manager &amp; Graphic Designer</p>
+                    <p>Shapes the product vision and brings Anxothotl's playful, comforting visual identity to life — from the axolotl mascot to every workshop asset and social post.</p>
                 </div>
+                <!-- Aakshi Arora - Web Developer -->
+                <div class="team-card glass team-card-solo">
+                    <div class="team-avatar" style="background: linear-gradient(135deg, #b8e0ff 0%, #6f8fd4 100%);">A</div>
+                    <div class="recog-badge">Web Developer</div>
+                    <h3>Aakshi Arora</h3>
+                    <p class="team-role">Web Developer</p>
+                </div>
+
+                <h3 class="researchers-title">Researchers</h3>
+
+                <!-- Manavjot Singh - Researcher -->
+                <div class="team-card glass">
+                    <div class="team-avatar team-avatar-placeholder">MS</div>
+                    <div class="recog-badge">Researcher</div>
+                    <h3>Manavjot Singh</h3>
+                    <p class="team-role">Researcher</p>
+                </div>
+
+                <!-- Tamanna Khattar - Researcher -->
+                <div class="team-card glass">
+                    <div class="team-avatar team-avatar-placeholder">TK</div>
+                    <div class="recog-badge">Researcher</div>
+                    <h3>Tamanna Khattar</h3>
+                    <p class="team-role">Researcher</p>
+                </div>
+
+                <!-- Vinay Pratap Singh - Researcher -->
+                <div class="team-card glass">
+                    <div class="team-avatar team-avatar-placeholder">VP</div>
+                    <div class="recog-badge">Researcher</div>
+                    <h3>Vinay Pratap Singh</h3>
+                    <p class="team-role">Researcher</p>
+                </div>
+
             </div>
         </section>
-
         <!-- ====== DASHBOARD ====== -->
         <section id="dashboard" class="page">
             <h2 class="section-title">👤 <span class="highlight">My Dashboard</span></h2>
