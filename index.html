@@ -1266,6 +1266,125 @@ body {
             border-radius: 20px;
             margin-bottom: 10px;
         }
+        /* ----- TEAM ----- */
+        .team-grid {
+            margin-top: 28px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 26px;
+        }
+        .team-card {
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .team-card .recog-badge { margin-bottom: 4px; }
+        .team-avatar {
+            width: 84px;
+            height: 84px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: var(--display);
+            font-size: 2rem;
+            font-weight: 700;
+            color: #fff;
+            box-shadow: 0 8px 20px rgba(114,2,88,0.2);
+            margin-bottom: 14px;
+        }
+        .team-avatar-placeholder {
+            background: var(--pink-2);
+            color: var(--pink-5);
+            font-size: 2.1rem;
+        }
+        .team-card h3 { font-family: var(--display); font-size: 1.25rem; color: var(--pink-5); margin-bottom: 2px; }
+        .team-role { font-size: 0.82rem; font-weight: 700; color: var(--pink-4); text-transform: uppercase; letter-spacing: 0.6px; margin-bottom: 10px; }
+        .team-card p:not(.team-role) { color: var(--pink-6); font-size: 0.9rem; line-height: 1.6; }
+        .team-card-draft { border-style: dashed; border-color: var(--pink-3); opacity: 0.92; }
+        .team-draft-tag {
+            display: inline-block;
+            margin-top: 12px;
+            font-size: 0.72rem;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            color: var(--pink-4);
+            background: rgba(114,2,88,0.06);
+            padding: 4px 12px;
+            border-radius: 20px;
+        }
+
+        /* ----- WELCOME POPUP ----- */
+        .welcome-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(72, 50, 55, 0.55);
+            backdrop-filter: blur(4px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 9998;
+            padding: 20px;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.35s ease;
+        }
+        .welcome-overlay.show {
+            opacity: 1;
+            pointer-events: auto;
+        }
+        .welcome-modal {
+            background: var(--pink-1);
+            border-radius: var(--radius);
+            box-shadow: 0 30px 70px rgba(114,2,88,0.4);
+            max-width: 420px;
+            width: 100%;
+            padding: 40px 32px 32px;
+            text-align: center;
+            position: relative;
+            transform: translateY(20px) scale(0.96);
+            transition: transform 0.35s cubic-bezier(.23,1,.32,1);
+        }
+        .welcome-overlay.show .welcome-modal {
+            transform: translateY(0) scale(1);
+        }
+        .welcome-modal .welcome-close {
+            position: absolute;
+            top: 14px;
+            right: 16px;
+            background: transparent;
+            color: var(--pink-6);
+            font-size: 1.3rem;
+            line-height: 1;
+            width: 34px;
+            height: 34px;
+            border-radius: 50%;
+            transition: var(--transition);
+        }
+        .welcome-modal .welcome-close:hover {
+            background: var(--pink-2);
+            color: var(--pink-5);
+        }
+        .welcome-modal .welcome-logo img {
+            height: 56px;
+            width: auto;
+            margin-bottom: 18px;
+        }
+        .welcome-modal h2 {
+            font-family: var(--display);
+            font-size: 1.7rem;
+            color: var(--pink-5);
+            margin-bottom: 10px;
+        }
+        .welcome-modal p {
+            color: var(--pink-6);
+            font-size: 0.98rem;
+            line-height: 1.6;
+            margin-bottom: 22px;
+        }
+
         .recog-ig-link {
             display: inline-flex;
             align-items: center;
@@ -1342,6 +1461,17 @@ body {
     <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
 </head>
 <body>
+    <!-- Welcome Popup -->
+    <div id="welcomeOverlay" class="welcome-overlay">
+        <div class="welcome-modal">
+            <button class="welcome-close" id="welcomeClose" aria-label="Close welcome banner">&times;</button>
+            <div class="welcome-logo" id="welcomeLogo"></div>
+            <h2>Welcome to Anxothotl! 💜</h2>
+            <p>We're so glad you're here. Anxothotl is a safe space to understand and do away with your anxious thoughts — explore our workshops, tests, and community.</p>
+            <button class="btn-primary" id="welcomeStart">Let's Get Started</button>
+        </div>
+    </div>
+
     <!-- 3D Canvas -->
     <div id="three-canvas"></div>
 
@@ -1372,6 +1502,7 @@ body {
                 
                 <button data-page="joinus">Join Us</button>
                 <button data-page="recognition">Recognition</button>
+                <button data-page="team">Our Team</button>
                 <button data-page="dashboard">Dashboard</button>
             </div>
             <div class="nav-account" id="navAccount">
@@ -1509,7 +1640,7 @@ body {
                         </svg>
                         @axolotlheals
                     </a>
-                    <a class="social-handle-btn youtube" href="https://www.youtube.com/@anxothotl" target="_blank" rel="noopener noreferrer">
+                    <a class="social-handle-btn youtube" href="https://youtube.com/@anxothotlofficial?si=f_GKv1w90pFCSHQp" target="_blank" rel="noopener noreferrer">
                         <svg class="s-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <rect x="2" y="5" width="20" height="14" rx="4" stroke="currentColor" stroke-width="2"/>
                             <path d="M10 9.5L15 12L10 14.5V9.5Z" fill="currentColor"/>
@@ -1702,6 +1833,33 @@ body {
                     </div>
                 </div>
 
+            </div>
+        </section>
+
+        <!-- ====== TEAM ====== -->
+        <section id="team" class="page">
+            <h2 class="section-title">💜 <span class="highlight">Our Team</span></h2>
+            <p class="section-sub">The people behind Anxothotl — building a kinder, more aware world, one workshop at a time.</p>
+
+            <div class="team-grid">
+
+                <!-- Aarvi - Founder -->
+                <div class="team-card glass">
+                    <div class="team-avatar" style="background: linear-gradient(135deg, #ffd9ea 0%, #e8689f 100%);">A</div>
+                    <div class="recog-badge">Founder</div>
+                    <h3>Aarvi</h3>
+                    <p class="team-role">Founder, Anxothotl</p>
+                    <p>The heart behind Anxothotl — leading the vision to make mental health support accessible, warm, and stigma-free for young people everywhere.</p>
+                </div>
+
+                <!-- Manav - Graphic Designer -->
+                <div class="team-card glass">
+                    <div class="team-avatar" style="background: linear-gradient(135deg, #d0d154 0%, #9c717a 100%);">M</div>
+                    <div class="recog-badge">Graphic Designer</div>
+                    <h3>Manav</h3>
+                    <p class="team-role">Graphic Designer</p>
+                    <p>Brings Anxothotl's playful, comforting visual identity to life — from the axolotl mascot to every workshop asset and social post.</p>
+                </div>
             </div>
         </section>
 
@@ -2172,6 +2330,7 @@ body {
             auth: $('auth'),
             joinus: $('joinus'),
             recognition: $('recognition'),
+            team: $('team'),
         };
 
         function navigate(page) {
@@ -2626,6 +2785,37 @@ $('authForm').addEventListener('submit', async (e) => {
                 showToast('Test submitted! Score: ' + pct + '%');
             });
         }
+
+        // ----- WELCOME POPUP -----
+        (function initWelcomePopup() {
+            const overlay = $('welcomeOverlay');
+            const logoSlot = $('welcomeLogo');
+            const navLogoImg = document.querySelector('.nav-logo img');
+
+            if (logoSlot && navLogoImg) {
+                const clonedLogo = navLogoImg.cloneNode(true);
+                clonedLogo.removeAttribute('style');
+                logoSlot.appendChild(clonedLogo);
+            }
+
+            function closeWelcome() {
+                overlay.classList.remove('show');
+                try { sessionStorage.setItem('anxothotl_welcome_seen', '1'); } catch (e) {}
+            }
+
+            let alreadySeen = false;
+            try { alreadySeen = sessionStorage.getItem('anxothotl_welcome_seen') === '1'; } catch (e) {}
+
+            if (!alreadySeen) {
+                setTimeout(() => overlay.classList.add('show'), 400);
+            }
+
+            $('welcomeClose').addEventListener('click', closeWelcome);
+            $('welcomeStart').addEventListener('click', closeWelcome);
+            overlay.addEventListener('click', (e) => {
+                if (e.target === overlay) closeWelcome();
+            });
+        })();
 
         // ============================================================
         //  INIT
