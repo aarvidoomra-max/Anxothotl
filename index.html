@@ -1344,6 +1344,45 @@ body {
             margin: 0;
             padding: 0;
         }
+        .volunteer-list-wrap {
+            grid-column: 1 / -1;
+            background: rgba(255, 255, 255, 0.55);
+            backdrop-filter: blur(14px);
+            border-radius: var(--radius);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            box-shadow: var(--shadow);
+            padding: 12px 24px;
+            overflow-x: auto;
+        }
+        .volunteer-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-family: var(--font);
+        }
+        .volunteer-table th,
+        .volunteer-table td {
+            text-align: left;
+            padding: 12px 16px;
+        }
+        .volunteer-table th {
+            font-family: var(--display);
+            color: var(--pink-5);
+            font-weight: 700;
+            border-bottom: 2px solid var(--pink-3);
+        }
+        .volunteer-table th:first-child,
+        .volunteer-table td:first-child {
+            width: 70px;
+        }
+        .volunteer-table tbody tr {
+            border-bottom: 1px solid rgba(114, 2, 88, 0.1);
+        }
+        .volunteer-table tbody tr:last-child {
+            border-bottom: none;
+        }
+        .volunteer-table tbody tr:hover {
+            background: rgba(114, 2, 88, 0.05);
+        }
         .researchers-title {
             grid-column: 1 / -1;
             margin: 30px 0 -6px;
@@ -1885,7 +1924,7 @@ body {
 
         <!-- ====== TEAM ====== -->
         <section id="team" class="page">
-            <h2 class="section-title">💜 <span class="highlight">Our Team</span></h2>
+            <h2 class="section-title"><span class="highlight">Our Team</span></h2>
             <p class="section-sub">The people behind Anxothotl — building a kinder, more aware world, one workshop at a time.</p>
 
             <div class="team-grid">
@@ -1942,7 +1981,8 @@ body {
                     <p class="team-role">Researcher</p>
                 </div>
 
-                <h3 class="researchers-title">Volunteers</h3>
+                <h3 class="researchers-title">Volunteers<br><span style="font-size:0.55em; font-weight:600; opacity:0.75;">(This includes volunteers from all the sessions of volunteering held so far)</span></h3>
+                <h4 class="team-subtitle">Top Volunteers</h4>
 
                 <div class="team-card glass">
                     <div class="team-avatar team-avatar-placeholder">AK</div>
@@ -2022,81 +2062,52 @@ body {
                 </div>
 
                 <div class="team-row-break"></div>
-                <div class="team-card glass">
-                    <div class="team-avatar team-avatar-placeholder">AS</div>
-                    <div class="recog-badge">Volunteer</div>
-                    <h3>Ashwin Pratap Singh</h3>
-                    <p class="team-role">Volunteer</p>
-                </div>
-
-                <div class="team-card glass">
-                    <div class="team-avatar team-avatar-placeholder">AT</div>
-                    <div class="recog-badge">Volunteer</div>
-                    <h3>Arnav Talwar</h3>
-                    <p class="team-role">Volunteer</p>
-                </div>
-
-                <div class="team-card glass">
-                    <div class="team-avatar team-avatar-placeholder">SY</div>
-                    <div class="recog-badge">Volunteer</div>
-                    <h3>Shruti Yadav</h3>
-                    <p class="team-role">Volunteer</p>
-                </div>
-
-                <div class="team-card glass">
-                    <div class="team-avatar team-avatar-placeholder">AS</div>
-                    <div class="recog-badge">Volunteer</div>
-                    <h3>Aditi Shamkuwar</h3>
-                    <p class="team-role">Volunteer</p>
-                </div>
-
-                <div class="team-card glass">
-                    <div class="team-avatar team-avatar-placeholder">TK</div>
-                    <div class="recog-badge">Volunteer</div>
-                    <h3>Tanmay Kumar</h3>
-                    <p class="team-role">Volunteer</p>
-                </div>
-
-                <div class="team-card glass">
-                    <div class="team-avatar team-avatar-placeholder">G</div>
-                    <div class="recog-badge">Volunteer</div>
-                    <h3>Guneet</h3>
-                    <p class="team-role">Volunteer</p>
-                </div>
-
-                <div class="team-card glass">
-                    <div class="team-avatar team-avatar-placeholder">AG</div>
-                    <div class="recog-badge">Volunteer</div>
-                    <h3>Aanandi Gupta</h3>
-                    <p class="team-role">Volunteer</p>
-                </div>
-
-                <div class="team-card glass">
-                    <div class="team-avatar team-avatar-placeholder">MS</div>
-                    <div class="recog-badge">Volunteer</div>
-                    <h3>Manyata Sharma</h3>
-                    <p class="team-role">Volunteer</p>
-                </div>
-
-                <div class="team-card glass">
-                    <div class="team-avatar team-avatar-placeholder">A</div>
-                    <div class="recog-badge">Volunteer</div>
-                    <h3>Arushi</h3>
-                    <p class="team-role">Volunteer</p>
-                </div>
-
-                <div class="team-card glass">
-                    <div class="team-avatar team-avatar-placeholder">AK</div>
-                    <div class="recog-badge">Volunteer</div>
-                    <h3>Anandita Kasliwal</h3>
-                    <p class="team-role">Volunteer</p>
-                </div>
-
-                <div class="team-card glass">
-                    <div class="team-avatar team-avatar-placeholder">AA</div>
-                    <div class="recog-badge">Volunteer</div>
-                    <h3>Akshra Aggarwal</h3>
-                    <p class="team-role">Volunteer</p>
+                <h4 class="team-subtitle" style="grid-column: 1 / -1;">Volunteers</h4>
+                <div class="volunteer-list-wrap">
+                    <table class="volunteer-table">
+                        <thead>
+                            <tr>
+                                <th>S.No</th>
+                                <th>Name</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr><td>1</td><td>Ashwin Pratap Singh</td></tr>
+                            <tr><td>2</td><td>Arnav Talwar</td></tr>
+                            <tr><td>3</td><td>Shruti Yadav</td></tr>
+                            <tr><td>4</td><td>Aditi Shamkuwar</td></tr>
+                            <tr><td>5</td><td>Tanmay Kumar</td></tr>
+                            <tr><td>6</td><td>Guneet</td></tr>
+                            <tr><td>7</td><td>Aanandi Gupta</td></tr>
+                            <tr><td>8</td><td>Manyata Sharma</td></tr>
+                            <tr><td>9</td><td>Arushi</td></tr>
+                            <tr><td>10</td><td>Anandita Kasliwal</td></tr>
+                            <tr><td>11</td><td>Akshra Aggarwal</td></tr>
+                            <tr><td>12</td><td>Mahee Holkar</td></tr>
+                            <tr><td>13</td><td>Hunar Miglani</td></tr>
+                            <tr><td>14</td><td>Hernav Singh</td></tr>
+                            <tr><td>15</td><td>Arpit</td></tr>
+                            <tr><td>16</td><td>Ravjot</td></tr>
+                            <tr><td>17</td><td>Ananya</td></tr>
+                            <tr><td>18</td><td>Arush Arora</td></tr>
+                            <tr><td>19</td><td>Anushka Mittal</td></tr>
+                            <tr><td>20</td><td>Anuradha Gupta</td></tr>
+                            <tr><td>21</td><td>Nandita</td></tr>
+                            <tr><td>22</td><td>Nitya</td></tr>
+                            <tr><td>23</td><td>Shaurya Jain</td></tr>
+                            <tr><td>24</td><td>Hezal</td></tr>
+                            <tr><td>25</td><td>Hunar Mehta</td></tr>
+                            <tr><td>26</td><td>Abhinav</td></tr>
+                            <tr><td>27</td><td>Aadi</td></tr>
+                            <tr><td>28</td><td>Rim</td></tr>
+                            <tr><td>29</td><td>Avni Awasthi</td></tr>
+                            <tr><td>30</td><td>Jiya Sangwan</td></tr>
+                            <tr><td>31</td><td>Garima</td></tr>
+                            <tr><td>32</td><td>Muskan Singh</td></tr>
+                            <tr><td>33</td><td>Meshack Ochanda</td></tr>
+                            <tr><td>34</td><td>Snehal Abdol</td></tr>
+                        </tbody>
+                    </table>
                 </div>
 
             </div>
