@@ -1460,8 +1460,65 @@ body {
         }
         .team-card-solo {
             grid-column: 1 / -1;
-            max-width: 260px;
+            max-width: 640px;
             margin: 0;
+            align-items: flex-start;
+            text-align: left;
+        }
+        .team-solo-header {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: flex-start;
+            gap: 16px;
+        }
+        .team-solo-header .team-avatar {
+            margin-bottom: 0;
+            flex-shrink: 0;
+        }
+        .team-solo-heading {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            text-align: left;
+        }
+        .team-solo-heading .recog-badge { margin-bottom: 4px; }
+        .team-solo-heading h3 { margin-bottom: 0; }
+        .team-solo-row {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: center;
+            text-align: left;
+            gap: 24px;
+            flex-wrap: wrap;
+            margin-top: 14px;
+        }
+        .team-solo-row .team-video-trigger {
+            margin: 0;
+            flex-shrink: 0;
+        }
+        .team-solo-row p {
+            flex: 1;
+            min-width: 200px;
+        }
+        @media (max-width: 560px) {
+            .team-card-solo {
+                align-items: center;
+                text-align: center;
+            }
+            .team-solo-header {
+                flex-direction: column;
+                text-align: center;
+            }
+            .team-solo-heading {
+                align-items: center;
+                text-align: center;
+            }
+            .team-solo-row {
+                flex-direction: column;
+                text-align: center;
+            }
         }
         .team-row-break {
             grid-column: 1 / -1;
@@ -2185,16 +2242,22 @@ body {
 
                 <!-- Aarvi Doomra - Founder & CEO -->
                 <div class="team-card glass team-card-solo">
-                    <div class="team-avatar" style="background: linear-gradient(135deg, #ffd9ea 0%, #e8689f 100%);">A</div>
-                    <div class="recog-badge">Founder &amp; CEO</div>
-                    <h3>Aarvi Doomra</h3>
-                    <p>The heart behind Anxothotl — leading the vision to make mental health support accessible, warm, and stigma-free for young people everywhere.</p>
-                    <div class="team-video-trigger" id="founderVideoTrigger" data-video-src="foundervideolink.mp4" role="button" tabindex="0" aria-label="Meet the Founder video">
-                        <video class="team-video-thumb" muted playsinline preload="metadata">
-                            <source src="foundervideolink.mp4" type="video/mp4">
-                        </video>
-                        <span class="team-video-play">▶</span>
-                        <span class="team-video-caption">Meet the Founder</span>
+                    <div class="team-solo-header">
+                        <div class="team-avatar" style="background: linear-gradient(135deg, #ffd9ea 0%, #e8689f 100%);">A</div>
+                        <div class="team-solo-heading">
+                            <div class="recog-badge">Founder &amp; CEO</div>
+                            <h3>Aarvi Doomra</h3>
+                        </div>
+                    </div>
+                    <div class="team-solo-row">
+                        <div class="team-video-trigger" id="founderVideoTrigger" data-video-src="foundervideolink.mp4" role="button" tabindex="0" aria-label="Meet the Founder video">
+                            <video class="team-video-thumb" muted playsinline preload="metadata">
+                                <source src="foundervideolink.mp4" type="video/mp4">
+                            </video>
+                            <span class="team-video-play">▶</span>
+                            <span class="team-video-caption">Meet the Founder</span>
+                        </div>
+                        <p>The heart behind Anxothotl — leading the vision to make mental health support accessible, warm, and stigma-free for young people everywhere.</p>
                     </div>
                 </div>
 
