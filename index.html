@@ -1399,23 +1399,64 @@ body {
             padding: 4px 12px;
             border-radius: 20px;
         }
-        .team-video-link {
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-            margin-top: 10px;
-            font-size: 0.82rem;
-            font-weight: 700;
-            color: var(--pink-5);
+        .team-video-trigger {
+            position: relative;
+            display: block;
+            width: 100%;
+            max-width: 170px;
+            aspect-ratio: 16 / 10;
+            margin: 12px auto 0;
+            border-radius: 14px;
+            overflow: hidden;
+            cursor: pointer;
             border: 1px solid var(--pink-3);
-            padding: 6px 14px;
-            border-radius: 20px;
+            background: #000;
             transition: var(--transition);
         }
-        .team-video-link:hover {
+        .team-video-trigger:hover {
+            border-color: var(--pink-5);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(114,2,88,0.18);
+        }
+        .team-video-trigger video.team-video-thumb {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            pointer-events: none;
+        }
+        .team-video-trigger .team-video-play {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.92);
+            color: var(--pink-5);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.85rem;
+            pointer-events: none;
+            transition: var(--transition);
+        }
+        .team-video-trigger:hover .team-video-play {
             background: var(--pink-5);
             color: #fff;
-            border-color: var(--pink-5);
+        }
+        .team-video-trigger .team-video-caption {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            padding: 4px 8px;
+            font-size: 0.72rem;
+            font-weight: 700;
+            color: #fff;
+            background: linear-gradient(to top, rgba(0,0,0,0.65), transparent);
+            pointer-events: none;
         }
         .team-card-solo {
             grid-column: 1 / -1;
@@ -2148,7 +2189,13 @@ body {
                     <div class="recog-badge">Founder &amp; CEO</div>
                     <h3>Aarvi Doomra</h3>
                     <p>The heart behind Anxothotl — leading the vision to make mental health support accessible, warm, and stigma-free for young people everywhere.</p>
-                    <a class="team-video-link" id="founderVideoLink" href="foundervideolink.mp4">▶ Meet the Founder</a>
+                    <div class="team-video-trigger" id="founderVideoTrigger" data-video-src="foundervideolink.mp4" role="button" tabindex="0" aria-label="Meet the Founder video">
+                        <video class="team-video-thumb" muted playsinline preload="metadata">
+                            <source src="foundervideolink.mp4#t=0.5" type="video/mp4">
+                        </video>
+                        <span class="team-video-play">▶</span>
+                        <span class="team-video-caption">Meet the Founder</span>
+                    </div>
                 </div>
 
                 <!-- Manavjot Singh - chief innovation officer -->
@@ -3383,14 +3430,14 @@ $('authForm').addEventListener('submit', async (e) => {
         // ----- FOUNDER VIDEO POPUP -----
         (function initFounderVideo() {
             const overlay = $('founderVideoOverlay');
-            const link = $('founderVideoLink');
+            const trigger = $('founderVideoTrigger');
             const player = $('founderVideoPlayer');
             const closeBtn = $('founderVideoClose');
-            if (!overlay || !link || !player || !closeBtn) return;
+            if (!overlay || !trigger || !player || !closeBtn) return;
 
             function openFounderVideo(e) {
                 e.preventDefault();
-                const src = link.getAttribute('href');
+                const src = trigger.getAttribute('data-video-src');
                 if (src && src !== 'Enter link here') {
                     player.src = src;
                 }
@@ -3405,7 +3452,10 @@ $('authForm').addEventListener('submit', async (e) => {
                 player.pause();
             }
 
-            link.addEventListener('click', openFounderVideo);
+            trigger.addEventListener('click', openFounderVideo);
+            trigger.addEventListener('keydown', (e) => {
+                if (e.key === 'Enter' || e.key === ' ') openFounderVideo(e);
+            });
             closeBtn.addEventListener('click', closeFounderVideo);
             overlay.addEventListener('click', (e) => {
                 if (e.target === overlay) closeFounderVideo();
