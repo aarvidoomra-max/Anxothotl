@@ -1718,7 +1718,7 @@ body {
                 <!-- Stats -->
                 <div class="stats-row">
                     <div class="stat-item">
-                        <div class="number">40+</div>
+                        <div class="number">50+</div>
                         <div class="label">Community Members</div>
                     </div>
                     <div class="stat-item">
@@ -2121,12 +2121,12 @@ body {
 </div>
 
 </div>
+        </section>
         <!-- ====== DASHBOARD ====== -->
         <section id="dashboard" class="page">
             <h2 class="section-title">👤 <span class="highlight">My Dashboard</span></h2>
             <div id="dashboardContent">
-                <p style="color:var(--pink-6); opacity:0.7;">Please sign in to view your dashboard.</p>
-                <button class="btn-primary mt-20" id="dashSignIn">Sign In</button>
+                <p style="color:var(--pink-6); opacity:0.7;">Loading dashboard…</p>
             </div>
         </section>
 
@@ -2162,7 +2162,7 @@ body {
                 <div class="auth-info">
                     <div class="stat-card">
                         <h4>Community</h4>
-                        <div class="number" id="communityCount">0</div>
+                        <div class="number">50+</div>
                         <p style="color:var(--pink-6); opacity:0.7;">members and growing</p>
                     </div>
                     <div class="stat-card">
@@ -2361,6 +2361,11 @@ body {
         //  THREE.JS — 3D ATMOSPHERE (particles + hearts, no axolotls)
         // ============================================================
         (function init3D() {
+          try {
+            if (typeof THREE === 'undefined') {
+                console.warn('Anxothotl: THREE.js failed to load (check internet connection / CDN access). Skipping 3D background.');
+                return;
+            }
             const container = $('three-canvas');
             const scene = new THREE.Scene();
             scene.background = new THREE.Color(0xf1ebec);
@@ -2479,7 +2484,9 @@ body {
                 camera.updateProjectionMatrix();
                 renderer.setSize(w, h);
             });
-
+          } catch (err) {
+              console.warn('Anxothotl: 3D background failed to initialize, continuing without it.', err);
+          }
         })();
 
         // ============================================================
@@ -2596,20 +2603,19 @@ body {
             if (pages[page]) pages[page].classList.add('active');
             navBtns.forEach(b => b.classList.toggle('active', b.dataset.page === page));
             currentPage = page;
-            if (page === 'dashboard') renderDashboard();
-            if (page === 'workshops') renderWorkshops();
-            if (page === 'auth') renderAuthForm();
+            try {
+                if (page === 'dashboard') renderDashboard();
+                if (page === 'workshops') renderWorkshops();
+                if (page === 'auth') renderAuthForm();
+            } catch (err) {
+                console.error('Anxothotl: error rendering page "' + page + '".', err);
+            }
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
         navBtns.forEach(btn => {
             btn.addEventListener('click', () => {
                 const p = btn.dataset.page;
-                if (p === 'dashboard' && !currentUser) {
-                    navigate('auth');
-                    showToast('Please sign in first');
-                    return;
-                }
                 navigate(p);
             });
         });
@@ -2626,8 +2632,8 @@ body {
         async function getUsers() {
             if (_usersCache) return _usersCache;
             try {
-                const result = await window.storage.get('anxothotl_users', true);
-                _usersCache = result ? JSON.parse(result.value) : {};
+                const raw = localStorage.getItem('anxothotl_users');
+                _usersCache = raw ? JSON.parse(raw) : {};
             } catch (_) { _usersCache = {}; }
             return _usersCache;
         }
@@ -2635,7 +2641,7 @@ body {
         async function saveUsers(users) {
             _usersCache = users;
             try {
-                await window.storage.set('anxothotl_users', JSON.stringify(users), true);
+                localStorage.setItem('anxothotl_users', JSON.stringify(users));
             } catch (err) { console.error('saveUsers error:', err); }
         }
 
@@ -2826,6 +2832,7 @@ $('authForm').addEventListener('submit', async (e) => {
         // ----- RENDER CALENDAR (with year) -----
         function renderCalendar() {
             const grid = $('calendarGrid');
+            if (!grid) return;
 
             // Group by month and year
             const groups = {};
@@ -2895,65 +2902,115 @@ $('authForm').addEventListener('submit', async (e) => {
             grid.innerHTML = html || '<p style="grid-column:1/-1; color:var(--pink-6); opacity:0.6;">No workshops scheduled yet.</p>';
         }
 
-        // ----- RENDER DASHBOARD -----
+        // ----- RENDER DASHBOARD (rebuilt, defensive) -----
         function renderDashboard() {
-            const container = $('dashboardContent');
-            if (!currentUser) {
-                container.innerHTML = `
-              <p style="color:var(--pink-6); opacity:0.7;">Please sign in to view your dashboard.</p>
-              <button class="btn-primary mt-20" id="dashSignIn2">Sign In</button>
-            `;
-                const btn = container.querySelector('#dashSignIn2');
-                if (btn) btn.addEventListener('click', () => navigate('auth'));
+            const container = document.getElementById('dashboardContent');
+            if (!container) {
+                console.error('Anxothotl: #dashboardContent not found in DOM.');
                 return;
             }
 
-            const user = currentUser;
-            const registered = user.registeredWorkshops || [];
-            const results = user.testResults || [];
-            const registeredWorkshopsData = WORKSHOPS.filter(w => registered.includes(w.id));
+            try {
+                const isGuest = !currentUser;
+                const user = currentUser || {};
+                const registered = Array.isArray(user.registeredWorkshops) ? user.registeredWorkshops : [];
+                const results = Array.isArray(user.testResults) ? user.testResults : [];
+                const allWorkshops = Array.isArray(WORKSHOPS) ? WORKSHOPS : [];
+                const registeredWorkshopsData = allWorkshops.filter(w => registered.includes(w.id));
 
-            container.innerHTML = `
-            <div class="dashboard-grid">
-              <div class="dash-card">
-                <h3>👤 Profile</h3>
-                <div class="item"><span>Name</span> <strong>${user.name || '—'}</strong></div>
-                <div class="item"><span>Email</span> <strong>${user.email}</strong></div>
-                <div class="item"><span>Age</span> <strong>${user.age || '—'}</strong></div>
-                <div class="item"><span>City</span> <strong>${user.city || '—'}</strong></div>
-                <div class="item"><span>School</span> <strong>${user.school || '—'}</strong></div>
-              </div>
-              <div class="dash-card">
-                <h3>📋 Registered Workshops</h3>
-                ${registeredWorkshopsData.length === 0 ? '<p style="color:var(--pink-6); opacity:0.6;">You haven\'t registered for any workshops yet.</p>' :
-                  registeredWorkshopsData.map(w => `<div class="item"><span>${w.title}</span> <span style="font-size:0.75rem; color:var(--pink-4);">${w.date}</span></div>`).join('')}
-              </div>
-              <div class="dash-card">
-                <h3>📊 Test History</h3>
-                ${results.length === 0 ? '<p style="color:var(--pink-6); opacity:0.6;">No test results yet. Complete a workshop test to track your progress.</p>' :
-                  results.map(r => `<div class="item"><span>${r.workshopTitle || 'Workshop'}</span> <span class="badge-success">${r.score}%</span></div>`).join('')}
-              </div>
-              <div class="dash-card">
-                <h3>🧪 Take a Test</h3>
-                <p style="font-size:0.9rem; color:var(--pink-6); opacity:0.7; margin-bottom:12px;">Complete a self-reflection test to measure your anxiety awareness.</p>
-                <button class="btn-primary" id="btnStartTest" style="width:100%;">Start Test</button>
-                <div id="testContainer" class="test-container hidden"></div>
-              </div>
-            </div>
-          `;
+                const guestBanner = isGuest ? `
+                  <div class="dash-card" style="margin-bottom:20px;">
+                    <p style="color:var(--pink-6);">You're browsing as a guest — you can still take the test below. <a href="#" id="dashSignInLink" style="color:var(--pink-5); font-weight:600; text-decoration:underline;">Sign in</a> to save your results and track your progress over time.</p>
+                  </div>
+                ` : '';
 
-            const testBtn = container.querySelector('#btnStartTest');
-            const testContainer = container.querySelector('#testContainer');
-            testBtn.addEventListener('click', () => {
-                if (testContainer.classList.contains('hidden')) {
-                    testContainer.classList.remove('hidden');
-                    renderTest(testContainer);
-                    testBtn.textContent = 'Close Test';
-                } else {
-                    testContainer.classList.add('hidden');
-                    testBtn.textContent = 'Start Test';
+                const profileHtml = isGuest ? `
+                  <p style="color:var(--pink-6); opacity:0.7;">Sign in to see your profile details here.</p>
+                ` : `
+                  <div class="item"><span>Name</span> <strong>${escapeHtml(user.name) || '—'}</strong></div>
+                  <div class="item"><span>Email</span> <strong>${escapeHtml(user.email) || '—'}</strong></div>
+                  <div class="item"><span>Age</span> <strong>${escapeHtml(user.age) || '—'}</strong></div>
+                  <div class="item"><span>City</span> <strong>${escapeHtml(user.city) || '—'}</strong></div>
+                  <div class="item"><span>School</span> <strong>${escapeHtml(user.school) || '—'}</strong></div>
+                `;
+
+                const workshopsHtml = registeredWorkshopsData.length === 0
+                    ? '<p style="color:var(--pink-6); opacity:0.6;">You haven\'t registered for any workshops yet.</p>'
+                    : registeredWorkshopsData.map(w => `<div class="item"><span>${escapeHtml(w.title)}</span> <span style="font-size:0.75rem; color:var(--pink-4);">${escapeHtml(w.date)}</span></div>`).join('');
+
+                const testHistoryHtml = isGuest
+                    ? '<p style="color:var(--pink-6); opacity:0.6;">Sign in to keep a history of your test results.</p>'
+                    : (results.length === 0
+                        ? '<p style="color:var(--pink-6); opacity:0.6;">No test results yet. Complete a workshop test to track your progress.</p>'
+                        : results.map(r => `<div class="item"><span>${escapeHtml(r.workshopTitle) || 'Workshop'}</span> <span class="badge-success">${escapeHtml(r.score)}%</span></div>`).join(''));
+
+                container.innerHTML = `
+                  ${guestBanner}
+                  <div class="dashboard-grid">
+                    <div class="dash-card">
+                      <h3>👤 Profile</h3>
+                      ${profileHtml}
+                    </div>
+                    <div class="dash-card">
+                      <h3>📋 Registered Workshops</h3>
+                      ${workshopsHtml}
+                    </div>
+                    <div class="dash-card">
+                      <h3>📊 Test History</h3>
+                      ${testHistoryHtml}
+                    </div>
+                    <div class="dash-card">
+                      <h3>🧪 Take a Test</h3>
+                      <p style="font-size:0.9rem; color:var(--pink-6); opacity:0.7; margin-bottom:12px;">Complete a self-reflection test to measure your anxiety awareness.</p>
+                      <button class="btn-primary" id="btnStartTest" style="width:100%;">Start Test</button>
+                      <div id="testContainer" class="test-container hidden"></div>
+                    </div>
+                  </div>
+                `;
+
+                if (isGuest) {
+                    const signInLink = container.querySelector('#dashSignInLink');
+                    if (signInLink) {
+                        signInLink.addEventListener('click', (e) => {
+                            e.preventDefault();
+                            navigate('auth');
+                        });
+                    }
                 }
-            });
+
+                const testBtn = container.querySelector('#btnStartTest');
+                const testContainer = container.querySelector('#testContainer');
+                if (testBtn && testContainer) {
+                    testBtn.addEventListener('click', () => {
+                        if (testContainer.classList.contains('hidden')) {
+                            testContainer.classList.remove('hidden');
+                            renderTest(testContainer);
+                            testBtn.textContent = 'Close Test';
+                        } else {
+                            testContainer.classList.add('hidden');
+                            testBtn.textContent = 'Start Test';
+                        }
+                    });
+                }
+            } catch (err) {
+                console.error('Anxothotl: renderDashboard failed.', err);
+                container.innerHTML = `
+                  <div class="dash-card">
+                    <p style="color:var(--pink-6);">Something went wrong loading the dashboard. Please refresh the page.</p>
+                    <p style="font-size:0.75rem; color:var(--pink-6); opacity:0.6; margin-top:8px;">Error: ${escapeHtml(err && err.message)}</p>
+                  </div>
+                `;
+            }
+        }
+
+        function escapeHtml(str) {
+            if (str === null || str === undefined) return '';
+            return String(str)
+                .replace(/&/g, '&amp;')
+                .replace(/</g, '&lt;')
+                .replace(/>/g, '&gt;')
+                .replace(/"/g, '&quot;')
+                .replace(/'/g, '&#39;');
         }
 
         // ----- TEST -----
@@ -3080,11 +3137,23 @@ $('authForm').addEventListener('submit', async (e) => {
         // ============================================================
         getCurrentUser().then(user => {
             currentUser = user;
-            updateNav();
-            renderAuthForm();
-            renderWorkshops();
-            renderCalendar();
-            renderDashboard();
+            const steps = [
+                ['updateNav', updateNav],
+                ['renderAuthForm', renderAuthForm],
+                ['renderWorkshops', renderWorkshops],
+                ['renderCalendar', renderCalendar],
+                ['renderDashboard', renderDashboard],
+            ];
+            steps.forEach(([name, fn]) => {
+                try { fn(); } catch (err) { console.error('Anxothotl: init step "' + name + '" failed.', err); }
+            });
+        }).catch(err => {
+            console.error('Anxothotl: getCurrentUser failed, falling back to guest.', err);
+            currentUser = null;
+            try { updateNav(); } catch (_) {}
+            try { renderAuthForm(); } catch (_) {}
+            try { renderWorkshops(); } catch (_) {}
+            try { renderDashboard(); } catch (_) {}
         });
 
         console.log('🦎 Anxothotl — Do Away With Your Anxious Thoughts');
