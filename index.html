@@ -899,6 +899,59 @@
             align-items: center;
         }
 
+        /* ----- SPECIAL ANNOUNCEMENT BADGE ----- */
+        .special-announce {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            margin: 18px auto 8px;
+            padding: 10px 24px;
+            border-radius: 50px;
+            background: linear-gradient(135deg, var(--pink-5), var(--pink-4) 55%, var(--accent));
+            background-size: 220% 220%;
+            color: #fff;
+            font-weight: 700;
+            font-size: 0.95rem;
+            letter-spacing: 0.3px;
+            box-shadow: 0 8px 26px rgba(114, 2, 88, 0.35);
+            animation: announceGlow 3.2s ease-in-out infinite, announceFloat 2.6s ease-in-out infinite;
+            position: relative;
+            z-index: 2;
+            background: linear-gradient(
+    135deg,
+    var(--pink-5) 0%,
+    var(--pink-4) 45%,
+    var(--pink-3) 75%,
+    var(--accent) 100%
+);
+background-size: 220% 220%;
+color: white;
+        }
+        .special-announce .sparkle {
+            display: inline-block;
+            animation: sparkleSpin 2.4s linear infinite;
+        }
+        @keyframes announceGlow {
+            0%, 100% { background-position: 0% 50%; box-shadow: 0 8px 26px rgba(114, 2, 88, 0.35); }
+            50% { background-position: 100% 50%; box-shadow: 0 10px 34px rgba(208, 209, 84, 0.45); }
+        }
+        @keyframes announceFloat {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-4px); }
+        }
+        @keyframes sparkleSpin {
+            0% { transform: rotate(0deg) scale(1); }
+            50% { transform: rotate(180deg) scale(1.2); }
+            100% { transform: rotate(360deg) scale(1); }
+        }
+        @media (max-width: 640px) {
+            .special-announce {
+                font-size: 0.82rem;
+                padding: 8px 16px;
+                text-align: center;
+            }
+        }
+
         /* ----- APPRECIATED BY FOOTER ----- */
         .appreciated-footer {
             max-width: 1100px;
@@ -2118,10 +2171,16 @@ body {
                 </div>
 
                 <!-- Upcoming Workshop Banner -->
+                <div class="special-announce">
+                    <span class="sparkle">✨</span>
+                    This Sunday, coming up with something special
+                    <span class="sparkle">✨</span>
+                </div>
                 <div id="upcomingWorkshopBanner"></div>
 
                 <div class="logo-big">ANXOTHOTL</div>
                 <div class="tagline">DO AWAY WITH YOUR ANXIOUS THOUGHTS</div>
+
                 <p class="sub">A safe space for young minds to understand, express, and heal — together.</p>
 
                 <div class="cta-group">
