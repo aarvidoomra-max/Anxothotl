@@ -765,6 +765,40 @@
             border: 2px dashed var(--pink-5);
             background: rgba(208, 209, 84, 0.10);
         }
+        /* ----- FOUNDER'S SPECIAL CARD ----- */
+        .workshop-card-founder {
+            background: var(--pink-5);
+            border: 1px solid var(--pink-6);
+            color: #fff;
+        }
+        .workshop-card-founder:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 16px 48px rgba(114, 2, 88, 0.35);
+        }
+        .workshop-card-founder h3 {
+            color: #fff;
+        }
+        .workshop-card-founder .speaker {
+            color: #fff;
+            opacity: 0.9;
+        }
+        .workshop-card-founder .date {
+            background: rgba(255, 255, 255, 0.2);
+            color: #fff;
+        }
+        .workshop-card-founder .info-badge {
+            background: rgba(255, 255, 255, 0.15);
+            color: var(--accent);
+        }
+        .workshop-card-founder .yt-link,
+        .workshop-card-founder .ig-link {
+            background: rgba(255, 255, 255, 0.18);
+            color: #fff;
+        }
+        .workshop-card-founder .yt-link:hover,
+        .workshop-card-founder .ig-link:hover {
+            background: rgba(255, 255, 255, 0.3);
+        }
         .workshop-card-highlight {
             animation: cardPulse 1.8s ease;
         }
@@ -2171,11 +2205,6 @@ body {
                 </div>
 
                 <!-- Upcoming Workshop Banner -->
-                <div class="special-announce">
-                    <span class="sparkle">✨</span>
-                    This Sunday, coming up with something special
-                    <span class="sparkle">✨</span>
-                </div>
                 <div id="upcomingWorkshopBanner"></div>
 
                 <div class="logo-big">ANXOTHOTL</div>
@@ -2846,6 +2875,14 @@ body {
             instagramUrl: 'https://www.instagram.com/p/DW8iQgGE4ig/?igsh=MWFtdWg3Zmowb2d1MQ==',
             location: 'Ferozepur City',
             logo: RSD_LOGO
+        }, {
+            id: 'w2026_founders_birthday',
+            date: '20 July 2026',
+            title: "Founder's Birthday Special Workshop",
+            speaker: 'Aarvi Doomra, Srishti Thakur, and Aakshi Arora',
+            instagramUrl: 'https://www.instagram.com/p/Da-oLtAnSDL/',
+            location: 'Educate Ferozepur',
+            special: 'founder'
         }];
 
         // Test questions
@@ -3422,7 +3459,7 @@ $('authForm').addEventListener('submit', async (e) => {
             const grid = $('workshopGrid');
 
             grid.innerHTML = WORKSHOPS.map(w => `
-            <div class="workshop-card${w.upcoming ? ' workshop-card-upcoming' : ''}" id="workshop-${w.id}">
+            <div class="workshop-card${w.upcoming ? ' workshop-card-upcoming' : ''}${w.special === 'founder' ? ' workshop-card-founder' : ''}" id="workshop-${w.id}">
               ${w.logo ? `<img src="${w.logo}" alt="${escapeHtml(w.title)} logo" class="workshop-logo">` : ''}
               <span class="date">${w.date}</span>
               <h3>${w.title}</h3>
