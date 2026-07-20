@@ -697,6 +697,22 @@
             align-self: flex-start;
             margin-bottom: 10px;
         }
+        .live-dot {
+            display: inline-block;
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: #2ecc71;
+            margin-right: 7px;
+            vertical-align: middle;
+            box-shadow: 0 0 0 0 rgba(46, 204, 113, 0.6);
+            animation: live-dot-pulse 1.6s infinite;
+        }
+        @keyframes live-dot-pulse {
+            0% { box-shadow: 0 0 0 0 rgba(46, 204, 113, 0.6); }
+            70% { box-shadow: 0 0 0 6px rgba(46, 204, 113, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(46, 204, 113, 0); }
+        }
         .workshop-card h3 {
             font-size: 1.15rem;
             font-weight: 700;
@@ -2279,6 +2295,21 @@ body {
                     <div class="attribution">Approved by DIRECT at Dartmouth College</div>
                     <img class="school-logo" src="https://en.wikipedia.org/wiki/Special:FilePath/Dartmouth_College_logo.svg" alt="Dartmouth College logo">
                 </div>
+                <div class="testimonial-card">
+                    <div class="quote">I think you and your team did an amazing job! The initiative you took to write a research paper as a high school student is very impressive!</div>
+                    <div class="attribution">— Licensed Psychologist &amp; Lecturer <small>University of Southern California</small></div>
+                    <img class="school-logo" src="https://en.wikipedia.org/wiki/Special:FilePath/University_of_Southern_California_logo.svg" alt="University of Southern California logo">
+                </div>
+                <div class="testimonial-card">
+                    <div class="quote">I applaud your work and ambition, I believe climate change is real and I think it is an important topic.</div>
+                    <div class="attribution">— Stephen H. Crocker <small>Professor of Education, Rossier School of Education, University of Southern California</small></div>
+                    <img class="school-logo" src="https://en.wikipedia.org/wiki/Special:FilePath/University_of_Southern_California_logo.svg" alt="University of Southern California logo">
+                </div>
+                <div class="testimonial-card">
+                    <div class="quote">This sounds like a wonderful initiative as mental health issues seem to be more prevalent than ever.</div>
+                    <div class="attribution">— Faculty, Dartmouth College <small>Psychological &amp; Brain Sciences</small></div>
+                    <img class="school-logo" src="https://en.wikipedia.org/wiki/Special:FilePath/Dartmouth_College_logo.svg" alt="Dartmouth College logo">
+                </div>
             </div>
         </section>
 
@@ -2883,6 +2914,13 @@ body {
             instagramUrl: 'https://www.instagram.com/p/Da-oLtAnSDL/',
             location: 'Educate Ferozepur',
             special: 'founder'
+        }, {
+            id: 'w2026_doon',
+            date: 'Upcoming',
+            title: 'Workshop Soon at Doon Junior School',
+            speaker: 'Srishti Thakur',
+            location: 'Ferozepur',
+            upcoming: true
         }];
 
         // Test questions
@@ -3461,7 +3499,7 @@ $('authForm').addEventListener('submit', async (e) => {
             grid.innerHTML = WORKSHOPS.map(w => `
             <div class="workshop-card${w.upcoming ? ' workshop-card-upcoming' : ''}${w.special === 'founder' ? ' workshop-card-founder' : ''}" id="workshop-${w.id}">
               ${w.logo ? `<img src="${w.logo}" alt="${escapeHtml(w.title)} logo" class="workshop-logo">` : ''}
-              <span class="date">${w.date}</span>
+              <span class="date">${w.upcoming && w.date === 'Upcoming' ? '<span class="live-dot"></span>Upcoming' : w.date}</span>
               <h3>${w.title}</h3>
               <div class="speaker">🎙 ${w.speaker}</div>
               ${w.location ? `<div class="speaker">📍 ${w.location}</div>` : ''}
