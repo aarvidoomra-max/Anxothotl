@@ -663,6 +663,36 @@
         }
 
         /* ----- WORKSHOPS (no register) ----- */
+        .workshop-groups {
+            margin-top: 10px;
+        }
+        .workshop-city-group {
+            margin-top: 34px;
+        }
+        .workshop-city-group:first-child {
+            margin-top: 10px;
+        }
+        .workshop-city-heading {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-family: var(--display);
+            font-size: 1.5rem;
+            color: var(--pink-5);
+            font-weight: 700;
+            margin-bottom: 6px;
+        }
+        .workshop-city-heading .workshop-city-count {
+            font-family: var(--font);
+            font-size: 0.75rem;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            color: var(--pink-4);
+            background: var(--pink-2);
+            border-radius: 40px;
+            padding: 4px 12px;
+        }
         .workshop-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -2313,7 +2343,7 @@ body {
         <section id="workshops" class="page">
             <h2 class="section-title">🧠 <span class="highlight">Workshops</span></h2>
             <p class="section-sub">Explore our past and upcoming workshops — all designed to help you understand and manage anxiety.</p>
-            <div class="workshop-grid" id="workshopGrid"></div>
+            <div class="workshop-groups" id="workshopGrid"></div>
             <div style="text-align:center; margin-top:34px;">
                 <button class="btn-primary" id="btnChapterHeads">Wanna know who runs these chapters in different cities? 🏙️</button>
             </div>
@@ -2821,6 +2851,7 @@ body {
             date: ' 15 June 2025',
             title: ' Anxiety & Procrastination – How They are Connected',
             speaker: 'Ms. Megha Sharma (Certified Mental Health Therapist)',
+            city: 'Ferozepur',
             marker: true,
             youtubeUrl: 'https://youtu.be/F6FSko8JP5s?si=RJmPWKvfGMpf0YQU'
         }, {
@@ -2828,6 +2859,7 @@ body {
             date: '29 June 2025',
             title: 'Teenage Relationships',
             speaker: 'Rhea Srivastava',
+            city: 'Ferozepur',
             marker: true,
             youtubeUrl: 'https://www.youtube.com'
         }, {
@@ -2835,6 +2867,7 @@ body {
             date: '20 July 2025',
             title: 'Are You the Therapist Friend?',
             speaker: 'Rhea Srivastava',
+            city: 'Ferozepur',
             marker: true,
             youtubeUrl: 'https://youtu.be/JSF3a-CCM-s?si=6qrwJedOzmfBztte'
         }, {
@@ -2842,24 +2875,28 @@ body {
             date: '25 October 2025',
             title: 'Anxiety & Procrastination',
             speaker: 'Hezal (Chapter Head, Ferozepur), Reet, Shubh, and Himani',
+            city: 'Ferozepur',
             instagramUrl: 'https://www.instagram.com/p/DQPN6oVE9EP/?igsh=bzNrcHNjMjhsYTJ4'
         }, {
             id: 2,
             date: '9 November 2025',
             title: 'Friends & FOMO',
             speaker: 'Guneet',
+            city: 'Ferozepur',
             youtubeUrl: 'https://www.youtube.com'
         }, {
             id: 3,
             date: '30 December 2025',
             title: ' Friends & FOMO(EducateFzr)',
             speaker: 'Abhinav Kanojia',
+            city: 'Ferozepur',
             instagramUrl: 'https://www.instagram.com/p/DS4kV_jCt5H/?igsh=Mm10eGtyMDhzcnc5'
         }, {
             id: 'w2025_08',
             date: '22 March 2026',
             title: 'Climate Anxiety',
             speaker: 'Guneet',
+            city: 'Ferozepur',
             marker: true,
             youtubeUrl: 'https://www.youtube.com'
         }, {
@@ -2867,6 +2904,7 @@ body {
             date: '30 March 2026',
             title: ' Romance and Its Trysts with Social Media',
             speaker: 'Guneet',
+            city: 'Ferozepur',
             marker: true,
             youtubeUrl: 'https://www.youtube.com'
         }, {
@@ -2874,24 +2912,28 @@ body {
             date: '5 April 2026',
             title: 'Why Do We Fall for People Who Confuse Us?',
             speaker: 'Guneet',
+            city: 'Ferozepur',
             youtubeUrl: 'https://youtu.be/v0T_UKyf9lk?si=yitZ-pEuqqNW2vNH'
         }, {
             id: 5,
             date: '10 April 2026',
             title: 'Teenage Relationships (Sri Chaitanya Techno SChool, Jalalabad)',
             speaker: 'Aarvi Doomra',
+            city: 'Jalalabad',
             instagramUrl: 'https://www.instagram.com/p/DW8iQgGE4ig/?igsh=MWFtdWg3Zmowb2d1MQ=='
         }, {
             id: 6,
             date: '10 May 2026',
             title: ' Burnout at 16: Why Are We So Tired?',
             speaker: 'Dishaa Aggarwal',
+            city: 'Ferozepur',
             youtubeUrl: 'https://youtu.be/W4FQGNbigoA?si=Fj_dGoeQZyhAf4tf'
         }, {
             id: 'w2025_ny',
             date: '31 May 2026',
             title: " Validation Economy: Why Do Likes Feel So Personal?",
             speaker: 'Dishaa Aggarwal',
+            city: 'Ferozepur',
             marker: true,
             youtubeUrl: 'https://www.youtube.com'
         }, {
@@ -2901,6 +2943,7 @@ body {
             speaker: 'Srishti Thakur',
             instagramUrl: 'https://www.instagram.com/p/DW8iQgGE4ig/?igsh=MWFtdWg3Zmowb2d1MQ==',
             location: 'Ferozepur City',
+            city: 'Ferozepur',
             logo: RSD_LOGO
         }, {
             id: 'w2026_founders_birthday',
@@ -2909,13 +2952,32 @@ body {
             speaker: 'Aarvi Doomra, Srishti Thakur, and Aakshi Arora',
             instagramUrl: 'https://www.instagram.com/p/Da-oLtAnSDL/',
             location: 'Educate Ferozepur',
+            city: 'Ferozepur',
             special: 'founder'
         },  {
             id: 5,
             date: '25 July 2026',
             title: 'Doon Junior School, Ferozepur',
             speaker: 'Srishti Thakur',
+            city: 'Ferozepur',
             instagramUrl: 'https://www.instagram.com/reel/DbQ9wopTj8f/?igsh=dXRpNXgwemQwODVz'
+        }, {
+            id: 'w2026_wisdom_fazilka',
+            date: '1 August 2026',
+            title: 'General Awareness Workshop on Mental Health — Wisdom Convent School, Fazilka',
+            speaker: 'Anxothotl Team',
+            upcoming: true,
+            location: 'Wisdom Convent School, Fazilka',
+            city: 'Fazilka',
+            topics: 'Peer pressure, climate anxiety, social media, and anxiety & procrastination'
+        }, {
+            id: 'w2026_kv_faridkot',
+            date: '10 August 2026',
+            title: 'Anxiety Awareness Workshop — KV Faridkot',
+            speaker: 'Anxothotl Team',
+            upcoming: true,
+            location: 'KV Faridkot',
+            city: 'Faridkot'
         }];
 
         // Test questions
@@ -3487,11 +3549,12 @@ $('authForm').addEventListener('submit', async (e) => {
     renderAuthForm();
 });
 
-        // ----- RENDER WORKSHOPS ----- 
-        function renderWorkshops() {
-            const grid = $('workshopGrid');
+        // ----- RENDER WORKSHOPS (grouped by city) ----- 
+        const WORKSHOP_CITY_ORDER = ['Jalalabad', 'Ferozepur', 'Fazilka', 'Faridkot'];
+        const WORKSHOP_CITY_EMOJI = { Jalalabad: '🏙️', Ferozepur: '🏙️', Fazilka: '🏙️', Faridkot: '🏙️' };
 
-            grid.innerHTML = WORKSHOPS.map(w => `
+        function workshopCardHTML(w) {
+            return `
             <div class="workshop-card${w.upcoming ? ' workshop-card-upcoming' : ''}${w.special === 'founder' ? ' workshop-card-founder' : ''}" id="workshop-${w.id}">
               ${w.logo ? `<img src="${w.logo}" alt="${escapeHtml(w.title)} logo" class="workshop-logo">` : ''}
               <span class="date">${w.upcoming && w.date === 'Upcoming' ? '<span class="live-dot"></span>Upcoming' : w.date}</span>
@@ -3502,7 +3565,36 @@ $('authForm').addEventListener('submit', async (e) => {
               ${w.youtubeUrl ? `<a class="yt-link" href="${w.youtubeUrl}" target="_blank" rel="noopener noreferrer">▶ Missed it? Watch the recording here</a>` : ''}
               ${w.instagramUrl !== undefined ? `<a class="ig-link" href="${w.instagramUrl || '#'}" target="_blank" rel="noopener noreferrer">📸 View Pictures</a>` : ''}
             </div>
-          `).join('');
+          `;
+        }
+
+        function renderWorkshops() {
+            const grid = $('workshopGrid');
+
+            // Group workshops by city, keeping each city's original chronological order
+            const groups = {};
+            WORKSHOPS.forEach(w => {
+                const city = w.city || 'Ferozepur';
+                if (!groups[city]) groups[city] = [];
+                groups[city].push(w);
+            });
+
+            // Cities in the preferred order first, then any other cities found in the data
+            const otherCities = Object.keys(groups).filter(c => !WORKSHOP_CITY_ORDER.includes(c));
+            const cityOrder = [...WORKSHOP_CITY_ORDER, ...otherCities];
+
+            grid.innerHTML = cityOrder
+                .filter(city => groups[city] && groups[city].length)
+                .map(city => `
+                <div class="workshop-city-group">
+                  <h3 class="workshop-city-heading">${WORKSHOP_CITY_EMOJI[city] || '🏙️'} ${escapeHtml(city)}
+                    <span class="workshop-city-count">${groups[city].length} workshop${groups[city].length === 1 ? '' : 's'}</span>
+                  </h3>
+                  <div class="workshop-grid">
+                    ${groups[city].map(workshopCardHTML).join('')}
+                  </div>
+                </div>
+              `).join('');
         }
 
 
