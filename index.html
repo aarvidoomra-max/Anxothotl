@@ -4463,8 +4463,8 @@ $('authForm').addEventListener('submit', async (e) => {
             // anyone who views page source or the network tab — only do this if
             // you're OK with that (e.g. a low-traffic key, or you've capped
             // usage/spend on it in Google AI Studio).
-            const GEMINI_API_KEY = 'AQ.Ab8RN6I032NP92hTjELyQfE2PpxCghd-hUXPw2-LAinvTh0n_w';
-            const GEMINI_MODEL = 'gemini-3.5-flash';
+            const GEMINI_API_KEY = 'AQ.Ab8RN6LlFci-XMO2-WwgxCEwVmSbBM5Zk9x5p6K3lqeiGfYUqQ';
+            const GEMINI_MODEL = 'gemini-3.6-flash';
             const GEMINI_URL = `https://generativelanguage.googleapis.com/v1beta/models/${GEMINI_MODEL}:generateContent`;
 
             const ANXO_SYSTEM_PROMPT = `You are Anxo, a warm, supportive AI companion inside the Anxothotl app,
@@ -4555,9 +4555,12 @@ Guidelines:
                     { role: 'user', parts: [{ text: message }] },
                 ];
 
-                const res = await fetch(`${GEMINI_URL}?key=${GEMINI_API_KEY}`, {
+                const res = await fetch(GEMINI_URL, {
                     method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'x-goog-api-key': GEMINI_API_KEY,
+                    },
                     body: JSON.stringify({
                         systemInstruction: { parts: [{ text: ANXO_SYSTEM_PROMPT }] },
                         contents,
