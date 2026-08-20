@@ -1002,6 +1002,56 @@
             flex-wrap: wrap;
             align-items: center;
         }
+        
+        /* ----- COLLABORATION BANNER (Featured) ----- */
+        .upcoming-banner-collab {
+            margin-top: 30px;
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.85) 0%, rgba(241, 235, 236, 0.8) 100%);
+            backdrop-filter: blur(12px);
+            border: 2px solid var(--accent);
+            border-radius: var(--radius);
+            display: flex;
+            max-width: 100%;
+            margin-left: auto;
+            margin-right: auto;
+            box-shadow: 0 20px 60px rgba(114, 2, 88, 0.3);
+            overflow: hidden;
+            animation: collabPulse 3s ease-in-out infinite;
+        }
+        @keyframes collabPulse {
+            0%, 100% { box-shadow: 0 20px 60px rgba(114, 2, 88, 0.3); }
+            50% { box-shadow: 0 20px 80px rgba(208, 209, 84, 0.4); }
+        }
+        .upcoming-banner-collab img {
+            width: 100%;
+            display: block;
+        }
+        .upcoming-banner-collab .ub-text {
+            text-align: left;
+            flex: 1;
+            min-width: auto;
+        }
+        .upcoming-banner-collab .ub-label {
+            font-size: 0.72rem;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            color: var(--accent);
+        }
+        .upcoming-banner-collab .ub-title {
+            font-family: var(--display);
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--pink-7);
+            margin: 6px 0;
+            line-height: 1.4;
+        }
+        .upcoming-banner-collab .ub-meta {
+            font-size: 0.9rem;
+            color: var(--pink-5);
+            opacity: 0.95;
+            font-weight: 600;
+        }
 
         /* ----- SPECIAL ANNOUNCEMENT BADGE ----- */
         .special-announce {
@@ -2261,7 +2311,110 @@ body {
             margin-bottom: 22px;
         }
 
-        .recog-ig-link {
+        /* ----- COLLAB BANNER POPUP ----- */
+        .collab-banner-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(72, 50, 55, 0.55);
+            backdrop-filter: blur(4px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 9997;
+            padding: 20px;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.35s ease;
+        }
+        .collab-banner-overlay.show {
+            opacity: 1;
+            pointer-events: auto;
+        }
+        .collab-banner-modal {
+            background: var(--pink-1);
+            border-radius: var(--radius);
+            box-shadow: 0 30px 70px rgba(114,2,88,0.4);
+            max-width: 520px;
+            width: 100%;
+            padding: 0;
+            overflow: hidden;
+            text-align: center;
+            position: relative;
+            transform: translateY(20px) scale(0.96);
+            transition: transform 0.35s cubic-bezier(.23,1,.32,1);
+            display: flex;
+            flex-direction: column;
+        }
+        .collab-banner-overlay.show .collab-banner-modal {
+            transform: translateY(0) scale(1);
+        }
+        .collab-banner-modal .collab-banner-close {
+            position: absolute;
+            top: 14px;
+            right: 16px;
+            background: rgba(255, 255, 255, 0.9);
+            color: var(--pink-6);
+            font-size: 1.3rem;
+            line-height: 1;
+            width: 34px;
+            height: 34px;
+            border-radius: 50%;
+            transition: var(--transition);
+            z-index: 10;
+        }
+        .collab-banner-modal .collab-banner-close:hover {
+            background: var(--pink-2);
+            color: var(--pink-5);
+        }
+        .collab-banner-image {
+            width: 100%;
+            max-height: 380px;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, rgba(114,2,88,0.05) 0%, rgba(208,209,84,0.05) 100%);
+        }
+        .collab-banner-image img {
+            width: 100%;
+            height: auto;
+            object-fit: cover;
+            display: block;
+        }
+        .collab-banner-content {
+            padding: 32px 28px;
+        }
+        .collab-banner-modal h2 {
+            font-family: var(--display);
+            font-size: 1.6rem;
+            color: var(--pink-5);
+            margin-bottom: 14px;
+        }
+        .collab-banner-modal p {
+            color: var(--pink-6);
+            font-size: 0.95rem;
+            line-height: 1.6;
+            margin-bottom: 0;
+        }
+        .collab-banner-modal p strong {
+            color: var(--pink-5);
+            font-weight: 700;
+        }
+        @media (max-width: 480px) {
+            .collab-banner-modal {
+                max-width: 100%;
+            }
+            .collab-banner-image {
+                max-height: 280px;
+            }
+            .collab-banner-content {
+                padding: 24px 20px;
+            }
+            .collab-banner-modal h2 {
+                font-size: 1.4rem;
+            }
+        }
+
             display: inline-flex;
             align-items: center;
             gap: 6px;
@@ -2447,6 +2600,22 @@ body {
             <h2>Welcome to Anxothotl! 💜</h2>
             <p>We're so glad you're here. Anxothotl is a safe space to understand and do away with your anxious thoughts — explore our workshops, tests, and community.</p>
             <button class="btn-primary" id="welcomeStart">Let's Get Started</button>
+        </div>
+    </div>
+
+    <!-- Collab of the Year Event Banner Popup -->
+    <div id="collabBannerOverlay" class="collab-banner-overlay">
+        <div class="collab-banner-modal">
+            <button class="collab-banner-close" id="collabBannerClose" aria-label="Close collaboration banner">&times;</button>
+            <div class="collab-banner-image">
+                <img src="Workshop.jpeg" alt="Collab of the Year - International Collaboration">
+            </div>
+            <div class="collab-banner-content">
+                <h2>🌍 Collab of the Year</h2>
+                <p>An international collaboration with <strong>Dartmouth College's DIRECT Lab</strong> and <strong>EcoPsych</strong> (Vietnam-based sustainability organization)</p>
+                <p style="font-size: 0.9rem; color: var(--pink-6); margin-top: 12px;">Exploring the intersection of mental health and environmental sustainability</p>
+                <button class="btn-primary" id="collabBannerBtn" style="margin-top: 16px;">Learn More</button>
+            </div>
         </div>
     </div>
 
@@ -3296,9 +3465,22 @@ body {
             date: '10 August 2026',
             title: 'Anxiety Awareness Workshop — KV Faridkot',
             speaker: 'Srishti Thakur',
-            upcoming: true,
             location: 'KV Faridkot',
             city: 'Faridkot'
+        }, {
+            id: 'w2026_collab_dartmouth',
+            date: 'Coming Soon',
+            title: 'Collab of the Year — International Sustainability & Mental Health Initiative',
+            speaker: 'Anxothoti · Dartmouth College DIRECT Lab · EcoPsych (Vietnam)',
+            upcoming: true,
+            location: 'Online / International',
+            city: 'Online',
+            description: 'An international collaboration bringing together Anxothoti, Dartmouth College\'s DIRECT Lab, and EcoPsych—a Vietnam-based sustainability organization—to explore the intersection of mental health and environmental sustainability.',
+            collaborators: ['Anxothoti', 'Dartmouth College DIRECT Lab', 'EcoPsych (Vietnam)'],
+            topics: 'Climate anxiety, environmental sustainability, mental health awareness',
+            logo: 'Workshop.jpeg',
+            featuredImage: 'Workshop.jpeg',
+            special: 'collab'
         }];
 
         // Test questions
@@ -3876,13 +4058,18 @@ $('authForm').addEventListener('submit', async (e) => {
         const WORKSHOP_CITY_ORDER = ['Jalalabad', 'Ferozepur', 'Fazilka', 'Faridkot', 'Online'];
 
         function workshopCardHTML(w) {
+            const collaboratorsHtml = w.collaborators ? `<div class="speaker" style="color:var(--pink-5); font-weight:600; margin-top:8px;">🤝 Partners: ${w.collaborators.map(c => escapeHtml(c)).join(' · ')}</div>` : '';
+            const descriptionHtml = w.description ? `<div style="font-size:0.9rem; color:var(--pink-6); margin-top:10px; line-height:1.5;">${escapeHtml(w.description)}</div>` : '';
             return `
             <div class="workshop-card${w.upcoming ? ' workshop-card-upcoming' : ''}${w.special === 'founder' ? ' workshop-card-founder' : ''}" id="workshop-${w.id}">
               ${w.logo ? `<img src="${w.logo}" alt="${escapeHtml(w.title)} logo" class="workshop-logo">` : ''}
               <span class="date">${w.upcoming && w.date === 'Upcoming' ? '<span class="live-dot"></span>Upcoming' : w.date}</span>
               <h3>${w.title}</h3>
               <div class="speaker">🎙 ${w.speaker}</div>
+              ${collaboratorsHtml}
               ${w.location ? `<div class="speaker">📍 ${w.location}</div>` : ''}
+              ${w.topics ? `<div style="font-size:0.85rem; color:var(--pink-4); margin-top:8px;">Topics: ${escapeHtml(w.topics)}</div>` : ''}
+              ${descriptionHtml}
               <span class="info-badge">${w.upcoming ? '🗓️ Upcoming' : '📌 Workshop'}</span>
               ${w.youtubeUrl ? `<a class="yt-link" href="${w.youtubeUrl}" target="_blank" rel="noopener noreferrer">▶ Missed it? Watch the recording here</a>` : ''}
               ${w.instagramUrl !== undefined ? `<a class="ig-link" href="${w.instagramUrl || '#'}" target="_blank" rel="noopener noreferrer">📸 View Pictures</a>` : ''}
@@ -3959,17 +4146,40 @@ $('authForm').addEventListener('submit', async (e) => {
             if (!banner) return;
             const upcoming = WORKSHOPS.find(w => w.upcoming);
             if (!upcoming) { banner.innerHTML = ''; return; }
-            banner.innerHTML = `
-              <div class="upcoming-banner btn-jump">
-                ${upcoming.logo ? `<img src="${upcoming.logo}" alt="${escapeHtml(upcoming.title)} logo">` : ''}
-                <div class="ub-text">
-                  <div class="ub-label">🗓️ Upcoming Workshop</div>
-                  <div class="ub-title">${escapeHtml(upcoming.title)}</div>
-                  <div class="ub-meta">${escapeHtml(upcoming.date)}${upcoming.location ? ' · ' + escapeHtml(upcoming.location) : ''}</div>
-                </div>
-                <button class="btn-primary" id="upcomingBannerBtn" style="white-space:nowrap;">See Details</button>
-              </div>
-            `;
+            
+            const isCollaboration = upcoming.special === 'collab';
+            const bannerClass = isCollaboration ? 'upcoming-banner-collab btn-jump' : 'upcoming-banner btn-jump';
+            
+            if (isCollaboration && upcoming.featuredImage) {
+                // Display featured image prominently for collaboration
+                banner.innerHTML = `
+                  <div class="${bannerClass}" style="flex-direction: column; padding: 0; overflow: hidden; border-radius: var(--radius); box-shadow: 0 16px 48px rgba(114, 2, 88, 0.25);">
+                    <div style="width: 100%; max-height: 280px; overflow: hidden;">
+                      <img src="${upcoming.featuredImage}" alt="${escapeHtml(upcoming.title)}" style="width: 100%; height: auto; display: block; object-fit: cover;">
+                    </div>
+                    <div class="ub-text" style="padding: 24px 28px;">
+                      <div class="ub-label">✨ Collab of the Year</div>
+                      <div class="ub-title">${escapeHtml(upcoming.title)}</div>
+                      <div class="ub-meta">${escapeHtml(upcoming.date)}${upcoming.location ? ' · ' + escapeHtml(upcoming.location) : ''}</div>
+                    </div>
+                    <button class="btn-primary" id="upcomingBannerBtn" style="white-space:nowrap; margin: 0 28px 24px; align-self: flex-start;">See Details</button>
+                  </div>
+                `;
+            } else {
+                // Standard banner for regular workshops
+                banner.innerHTML = `
+                  <div class="${bannerClass}">
+                    ${upcoming.logo ? `<img src="${upcoming.logo}" alt="${escapeHtml(upcoming.title)} logo">` : ''}
+                    <div class="ub-text">
+                      <div class="ub-label">🗓️ Upcoming Workshop</div>
+                      <div class="ub-title">${escapeHtml(upcoming.title)}</div>
+                      <div class="ub-meta">${escapeHtml(upcoming.date)}${upcoming.location ? ' · ' + escapeHtml(upcoming.location) : ''}</div>
+                    </div>
+                    <button class="btn-primary" id="upcomingBannerBtn" style="white-space:nowrap;">See Details</button>
+                  </div>
+                `;
+            }
+            
             const btn = $('upcomingBannerBtn');
             if (btn) {
                 btn.addEventListener('click', () => {
@@ -4665,6 +4875,45 @@ Guidelines:
             $('welcomeStart').addEventListener('click', closeWelcome);
             overlay.addEventListener('click', (e) => {
                 if (e.target === overlay) closeWelcome();
+            });
+        })();
+
+        // ----- INIT COLLAB BANNER POPUP -----
+        (function initCollabBannerPopup() {
+            const overlay = $('collabBannerOverlay');
+            if (!overlay) return;
+
+            function closeCollabBanner() {
+                overlay.classList.remove('show');
+                try { sessionStorage.setItem('anxothotl_collab_banner_seen', '1'); } catch (e) {}
+            }
+
+            let alreadySeen = false;
+            try { alreadySeen = sessionStorage.getItem('anxothotl_collab_banner_seen') === '1'; } catch (e) {}
+
+            if (!alreadySeen) {
+                // Show collab banner after a short delay (but before welcome popup fades)
+                setTimeout(() => overlay.classList.add('show'), 800);
+            }
+
+            $('collabBannerClose').addEventListener('click', closeCollabBanner);
+            const collabBtn = $('collabBannerBtn');
+            if (collabBtn) {
+                collabBtn.addEventListener('click', () => {
+                    closeCollabBanner();
+                    navigate('workshops');
+                    setTimeout(() => {
+                        const card = $('workshop-w2026_collab_dartmouth');
+                        if (card) {
+                            card.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                            card.classList.add('workshop-card-highlight');
+                            setTimeout(() => card.classList.remove('workshop-card-highlight'), 1800);
+                        }
+                    }, 300);
+                });
+            }
+            overlay.addEventListener('click', (e) => {
+                if (e.target === overlay) closeCollabBanner();
             });
         })();
 
